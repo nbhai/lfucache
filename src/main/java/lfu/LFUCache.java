@@ -19,7 +19,7 @@ public class LFUCache {
 
     public int get(int key) {
         if (!keyNodeMap.containsKey(key)) {
-            return -1; // Key not found
+            return -1; 
         }
         Node node = keyNodeMap.get(key);
         updateFrequency(node);
@@ -28,7 +28,7 @@ public class LFUCache {
 
     public void put(int key, int value) {
         if (capacity == 0) {
-            return; // Capacity is zero, do nothing
+            return; 
         }
         if (keyNodeMap.containsKey(key)) {
             Node node = keyNodeMap.get(key);
@@ -37,7 +37,7 @@ public class LFUCache {
         } else {
             if (keyNodeMap.size() >= capacity) {
                 LinkedHashSet<Node> minFreqSet = freqNodeMap.get(minFreq);
-                Node evict = minFreqSet.iterator().next(); // LRU from LFU group
+                Node evict = minFreqSet.iterator().next(); 
                 minFreqSet.remove(evict);
                 if (minFreqSet.isEmpty()) {
                     freqNodeMap.remove(minFreq);
