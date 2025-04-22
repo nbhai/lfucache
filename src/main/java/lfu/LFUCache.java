@@ -47,7 +47,10 @@ public class LFUCache {
 
             Node newNode = new Node(key, value);
             keyNodeMap.put(key, newNode);
-            freqNodeMap.computeIfAbsent(1, k -> new LinkedHashSet<>()).add(newNode);
+            LinkedHashSet<Node> newSet = freqNodeMap.getOrDefault(1, new LinkedHashSet<>());
+            newSet.add(newNode);
+            freqNodeMap.put(1, newSet);
+//            freqNodeMap.computeIfAbsent(1, k -> new LinkedHashSet<>()).add(newNode);
             minFreq = 1;
         }
     }
@@ -63,7 +66,10 @@ public class LFUCache {
         }
 
         node.freq++;
-        freqNodeMap.computeIfAbsent(node.freq, k -> new LinkedHashSet<>()).add(node);
+        LinkedHashSet<Node> newSet = freqNodeMap.getOrDefault(node.freq, new LinkedHashSet<>());
+        newSet.add(node);
+        freqNodeMap.put(node.freq, newSet);
+//        freqNodeMap.computeIfAbsent(node.freq, k -> new LinkedHashSet<>()).add(node);
     }
 }
 
